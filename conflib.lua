@@ -59,14 +59,14 @@ function conflib.parse(file)
     if not fs.exists(file) then
         return conflib.parse.codes.file_not_found, nil
     end
-    local toParse = fslib.read_file(file)
-    toParse = std.strsplit(toParse, "\n")
+    local f = io.open(file)
     local c,t -- Is this an optimization in lua ?
-    for _, value in ipairs(toParse) do
-        c,t = internal.parse_line(value)
+    for line in f:lines() do
+        c,t = internal.parse_line(line)
         if c ~= conflib.parse.codes.success then return c, nil end
         table.insert(ret, t)
     end
+    f:close()
     return conflib.parse.codes.success, ret
 end
 

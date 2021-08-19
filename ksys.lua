@@ -15,7 +15,7 @@ ksys.return_codes = {
 
 function ksys.start(conf)
     io.write("Starting "..conf["name"].."...\n")
-    
+
 end
 
 function ksys.init()
@@ -51,9 +51,9 @@ end
 
 function ksys.install()
     io.write("installing ksys...")
-    local fconf = fs.open(ksyslib.filepath.conf)
-    fs.write(fconf, ksyslib.default.conf)
-    fs.close(fconf)
+    local fconf = io.open(ksyslib.filepath.conf)
+    fconf:write(ksyslib.default.conf)
+    fconf:close()
 end
 
 return ksys.init()

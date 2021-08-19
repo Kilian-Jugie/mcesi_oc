@@ -15,9 +15,9 @@ local function download(url)
 end
 
 local function download_to_file(url, output_path)
-    local h = io.open(output_path)
-    io.write(h, download(url))
-    io.close(h)
+    local h = io.open(output_path, "w")
+    h:write(download(url))
+    h:close()
 end
 
 print("Retrieving file list to download")
