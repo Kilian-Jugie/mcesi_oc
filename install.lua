@@ -24,7 +24,7 @@ print("Retrieving file list to download")
 local to_download = download("https://raw.githubusercontent.com/Kilian-Jugie/mcesi_oc/dev/install_files")
 to_download = strsplit(to_download, "\n")
 for key, value in pairs(to_download) do
-    print("Downloading... "..key.."/"..#to_download)
+    print("Downloading '"..value.."' "..key.."/"..#to_download)
     download_to_file("https://raw.githubusercontent.com/Kilian-Jugie/mcesi_oc/dev/"..value, value)
 end
 print("Done")
