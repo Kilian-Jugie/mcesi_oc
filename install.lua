@@ -25,6 +25,6 @@ local to_download = download("https://raw.githubusercontent.com/Kilian-Jugie/mce
 to_download = strsplit(to_download, "\n")
 for key, value in pairs(to_download) do
     print("Downloading... "..key.."/"..#to_download)
-    download_to_file("https://raw.githubusercontent.com/Kilian-Jugie/mcesi_oc/dev/"..value)
+    download_to_file("https://raw.githubusercontent.com/Kilian-Jugie/mcesi_oc/dev/"..value, value)
 end
 print("Done")
