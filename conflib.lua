@@ -5,6 +5,10 @@ local fs = component.filesystem
 local std = require("stdlib")
 local internal = {}
 
+conflib.tokens = {}
+conflib.conf = {}
+conflib.parse = {}
+
 conflib.tokens.separator = "="
 conflib.conf.trim = true
 
@@ -54,7 +58,7 @@ function conflib.parse_error_to_str(error)
 end
 
 --- @return integer,table
-function conflib.parse(file)
+function conflib.parse_file(file)
     local ret = {}
     if not fs.exists(file) then
         return conflib.parse.codes.file_not_found, nil

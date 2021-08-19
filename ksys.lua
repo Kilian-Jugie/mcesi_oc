@@ -33,7 +33,7 @@ function ksys.init()
             return ksys.return_codes.not_installed
         end
     end
-    local code, conf = conflib.parse(ksyslib.filepath.conf)
+    local code, conf = conflib.parse_file(ksyslib.filepath.conf)
     if code ~= conflib.parse.codes.success then
         io.write("An error occured during file parsing: "..conflib.parse_error_to_str(code).."\n")
         return ksys.return_codes.config_error
