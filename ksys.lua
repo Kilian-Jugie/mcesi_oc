@@ -51,7 +51,7 @@ end
 
 function ksys.install()
     io.write("installing ksys...")
-    local fconf = io.open(ksyslib.filepath.conf)
+    local fconf = io.open(ksyslib.filepath.conf, "w")
     fconf:write(ksyslib.default.conf)
     fconf:close()
 end
