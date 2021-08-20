@@ -1,3 +1,4 @@
+package.loaded.ksyslib = nil
 local ksyslib = require("ksyslib")
 -- Used components:
 --   Filesystem (nocheck, should exists in any conditions)

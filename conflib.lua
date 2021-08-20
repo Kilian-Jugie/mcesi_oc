@@ -1,7 +1,9 @@
 local conflib = {}
 local component = require("component")
+package.loaded.fslib = nil
 local fslib = require("fslib")
 local fs = component.filesystem
+package.loaded.stdlib = nil
 local std = require("stdlib")
 local internal = {}
 
