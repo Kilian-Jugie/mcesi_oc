@@ -1,8 +1,10 @@
 local ksys = {}
 ksys.filepath = {}
 ksys.default = {}
+ksys.path = {}
 
-ksys.filepath.conf = "/etc/ksys.conf"
-ksys.default.conf = "hostname = nil"
+ksys.path.conf = "/etc/ksys"
+ksys.filepath.conf = ksys.path.conf.."/ksys.conf"
+ksys.default.conf = "hostname = unamed"
 
 return ksys

@@ -48,10 +48,12 @@ end
 
 function ksys.uninstall()
     fs.remove(ksyslib.filepath.conf)
+    fs.remove(ksyslib.path.conf)
 end
 
 function ksys.install()
     io.write("installing ksys...\n")
+    fs.makeDirectory(ksyslib.path.conf)
     local fconf = io.open(ksyslib.filepath.conf, "w")
     fconf:write(ksyslib.default.conf)
     fconf:close()
