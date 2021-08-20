@@ -39,19 +39,17 @@ function internal.low_trim(s)
     return s:match'^%s*(.*%S)' or ''
 end
 
---- @return integer,table
+--- @return integer,string,string
 function internal.parse_line(line)
     local sepIndex = string.find(line, conflib.tokens.separator)
     if sepIndex == nil then return conflib.parse.codes.separator_not_found, nil end
-    local ret = {}
     local name = string.sub(line, 0, sepIndex-1)
     local value = string.sub(line, sepIndex+1)
     if conflib.conf.trim then
         name = internal.low_trim(name)
         value = internal.low_trim(value)
     end
-    ret[name] = value
-    return conflib.parse.codes.success, ret
+    return conflib.parse.codes.success,name,value
 
 end
 
@@ -66,11 +64,11 @@ function conflib.parse_file(file)
         return conflib.parse.codes.file_not_found, nil
     end
     local f = io.open(file)
-    local c,t -- Is this an optimization in lua ?
+    local c,n,v -- Is this an optimization in lua ?
     for line in f:lines() do
-        c,t = internal.parse_line(line)
+        c,n,v = internal.parse_line(line)
         if c ~= conflib.parse.codes.success then return c, nil end
-        ret[t.name] = t.value
+        ret[n] = v
     end
     f:close()
     return conflib.parse.codes.success, ret
