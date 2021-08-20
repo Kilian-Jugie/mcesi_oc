@@ -35,10 +35,13 @@ conflib.parse.codes_str = {
 
 -- From http://lua-users.org/wiki/StringTrim
 -- Has low performance when lot of spaces but very efficient in our case
+--- @param s string
+--- @return string
 function internal.low_trim(s)
     return s:match'^%s*(.*%S)' or ''
 end
 
+--- @param line string
 --- @return integer,string,string
 function internal.parse_line(line)
     local sepIndex = string.find(line, conflib.tokens.separator)
@@ -53,10 +56,13 @@ function internal.parse_line(line)
 
 end
 
+--- @param error integer
+--- @return string
 function conflib.parse_error_to_str(error)
     return conflib.parse.codes_str[error]
 end
 
+--- @param file string
 --- @return integer,table
 function conflib.parse_file(file)
     local ret = {}
