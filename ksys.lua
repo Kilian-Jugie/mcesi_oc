@@ -3,6 +3,7 @@ local ksyslib = require("ksyslib")
 -- Used components:
 --   Filesystem (nocheck, should exists in any conditions)
 local component = require("component")
+package.loaded.conflib = nil
 local conflib = require("conflib")
 local fs = component.filesystem
 local ksys = {}
