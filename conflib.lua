@@ -44,7 +44,7 @@ function internal.parse_line(line)
     local sepIndex = string.find(line, conflib.tokens.separator)
     if sepIndex == nil then return conflib.parse.codes.separator_not_found, nil end
     local ret = {}
-    local name = string.sub(line, 0, sepIndex)
+    local name = string.sub(line, 0, sepIndex-1)
     local value = string.sub(line, sepIndex+1)
     if conflib.conf.trim then
         name = internal.low_trim(name)
@@ -70,7 +70,7 @@ function conflib.parse_file(file)
     for line in f:lines() do
         c,t = internal.parse_line(line)
         if c ~= conflib.parse.codes.success then return c, nil end
-        table.insert(ret, t)
+        ret[t.name] = t.value
     end
     f:close()
     return conflib.parse.codes.success, ret

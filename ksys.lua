@@ -15,7 +15,6 @@ ksys.return_codes = {
 }
 
 function ksys.start(conf)
-    io.write(conf.."\n")
     io.write("Starting "..conf["hostname"].."...\n")
 
 end
