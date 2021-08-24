@@ -9,6 +9,7 @@ package.loaded.conflib = nil
 local conflib = require "conflib"
 local fs = component.filesystem
 local ksys = {}
+local config = {}
 
 ksys.return_codes = {
     success = 0,
@@ -47,8 +48,8 @@ local function exit(_, _)
     return ksyslib.callbacks.return_codes.exit_required
 end
 
-function ksys.start(conf)
-    io.write("Starting "..conf["hostname"].."...\n")
+function ksys.start()
+    io.write("Starting "..config["hostname"].."...\n")
     io.write("Loading modules")
     ksys.load_modules(ksyslib.path.modules)
 
@@ -79,7 +80,11 @@ function ksys.start(conf)
     return ksys.return_codes.success
 end
 
-
+function ksys.modules_init()
+    if ~fs.exists(config["path.modules"]) then
+        fs.makeDirectory(config["path.modules"])
+    end
+end
 
 function ksys.init()
     if not ksys.is_installed() then
@@ -96,12 +101,14 @@ function ksys.init()
             return ksys.return_codes.not_installed
         end
     end
-    local code, conf = conflib.parse_file(ksyslib.filepath.conf)
+    local code, c = conflib.parse_file(ksyslib.filepath.conf)
+    config = c
     if code ~= conflib.parse.codes.success then
         io.write("An error occured during file parsing: "..conflib.parse_error_to_str(code).."\n")
         return ksys.return_codes.config_error
     end
-    return ksys.start(conf)
+    ksys.modules_init()
+    return ksys.start()
 end
 
 function ksys.is_installed()
@@ -109,16 +116,15 @@ function ksys.is_installed()
 end
 
 function ksys.uninstall(_,_)
+    fs.remove(config["path.modules"].."/*")
+    fs.remove(config["path.modules"])
     fs.remove(ksyslib.filepath.conf)
     fs.remove(ksyslib.path.conf)
-    fs.remove(ksyslib.path.modules.."/*")
-    fs.remove(ksyslib.path.modules)
 end
 
 function ksys.install()
     io.write("Installing ksys...\n")
     fs.makeDirectory(ksyslib.path.conf)
-    fs.makeDirectory(ksyslib.path.modules)
     local fconf = io.open(ksyslib.filepath.conf, "w")
     fconf:write(ksyslib.default.conf)
     fconf:close()

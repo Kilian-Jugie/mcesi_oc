@@ -4,9 +4,8 @@ ksys.default = {}
 ksys.path = {}
 
 ksys.path.conf = "/etc/ksys"
-ksys.path.modules = "./modules"
 ksys.filepath.conf = ksys.path.conf.."/ksys.conf"
-ksys.default.conf = "hostname = unamed"
+ksys.default.conf = "hostname = unamed\npath.modules = /opt/ksys/modules"
 
 ksys.callbacks = {}
 ksys.callbacks.return_codes = {
